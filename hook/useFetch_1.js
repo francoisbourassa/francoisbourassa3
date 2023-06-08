@@ -10,7 +10,7 @@ const useFetch_1 = (jobDetails, query) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`your-api-url/${jobDetails}?${query}`);
+        const response = await axios.get(`'https://jsearch.p.rapidapi.com/job-details',/${jobDetails}${query}`);
         setData(response.data);
         setError(null);
       } catch (err) {
