@@ -18,7 +18,7 @@ import {
   Specifics,
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
-import useFetch_1 from "../../hook/useFetch_1";
+import useFetch from "../../hook/useFetch";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 
@@ -26,12 +26,9 @@ const JobDetails = () => {
   const params = useSearchParams();
   const router = useRouter();
 
-  const { data, isLoading, error, refetch } = useFetch_1('job-details', {
+  const { data, isLoading, error, refetch } = useFetch("job-details", {
     job_id: params.id,
-    extended_publisher_details: 'false',
   });
-
-
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [refreshing, setRefreshing] = useState(false);
@@ -99,8 +96,8 @@ const JobDetails = () => {
         >
           {isLoading ? (
             <ActivityIndicator size='large' color={COLORS.primary} />
-         ): error ? (
-            <Text>{error.message || 'Something went wrong'}</Text>
+          ) : error ? (
+            <Text>Something went wrong</Text>
           ) : data.length === 0 ? (
             <Text>No data available</Text>
           ) : (

@@ -18,6 +18,7 @@ const JobSearch = () => {
     const [page, setPage] = useState(1);
 
     const handleSearch = async () => {
+        console.log("Starting the search");
         setSearchLoader(true);
         setSearchResult([])
 
@@ -34,28 +35,33 @@ const JobSearch = () => {
                     page: page.toString(),
                 },
             };
-
+            console.log("Making request with options: ", options);
             const response = await axios.request(options);
+            console.log("Received response: ", response.data.data);
             setSearchResult(response.data.data);
         } catch (error) {
             setSearchError(error);
-            console.log(error);
+            console.log("Error occurred during the request: ", error);
         } finally {
             setSearchLoader(false);
+            console.log("Setting search loader to false");
         }
     };
 
     const handlePagination = (direction) => {
         if (direction === 'left' && page > 1) {
             setPage(page - 1)
+            console.log("Moving to the previous page");
             handleSearch()
         } else if (direction === 'right') {
             setPage(page + 1)
+            console.log("Moving to the next page");
             handleSearch()
         }
     }
 
     useEffect(() => {
+        console.log("Component mounted, starting initial search");
         handleSearch()
     }, [])
 
